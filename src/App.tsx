@@ -16,9 +16,10 @@ import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
 import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
-import { Login } from "pages/login";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
+import { AccountCircleOutlined, ChatBubbleOutlineOutlined, PeopleOutline, StarOutlineRounded, VillaOutlined } from "@mui/icons-material";
+import { Login, Home, Agents, CreateProperty, EditProperty, Profile, AgentProfile } from "pages";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -98,12 +99,30 @@ function App() {
           catchAll={<ErrorComponent />}
           resources={[
             {
-              name: "posts",
+              name: "property",
               list: MuiInferencer,
-              edit: MuiInferencer,
-              show: MuiInferencer,
-              create: MuiInferencer,
-              canDelete: true,
+              icon: <VillaOutlined />
+            },
+            {
+              name: "agent",
+              list: MuiInferencer,
+              icon: <PeopleOutline />
+            },
+            {
+              name: "review",
+              list: MuiInferencer,
+              icon: <StarOutlineRounded />
+            },
+            {
+              name: "message",
+              list: MuiInferencer,
+              icon: <ChatBubbleOutlineOutlined/>
+            },
+            {
+              name: "profile",
+              options: {label: "Profile"},
+              list: MuiInferencer,
+              icon: <AccountCircleOutlined />
             },
           ]}
           Title={Title}
@@ -113,6 +132,7 @@ function App() {
           routerProvider={routerProvider}
           authProvider={authProvider}
           LoginPage={Login}
+          DashboardPage={Home}
         />
       </RefineSnackbarProvider>
     </ColorModeContextProvider>
